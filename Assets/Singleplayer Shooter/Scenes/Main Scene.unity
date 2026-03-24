@@ -40853,7 +40853,7 @@ MonoBehaviour:
   gravity: -9.81
   jumpForce: 1.5
   sprintSpeed: 8
-  mouseSensitivity: 100
+  mouseSensitivity: 50
   cameraHolder: {fileID: 1126096236}
 --- !u!1001 &1271249253
 PrefabInstance:
@@ -66098,7 +66098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1031632035184934186
 Transform:
   m_ObjectHideFlags: 0
