@@ -3,10 +3,29 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
+    [SerializeField] private WeaponSpawner _weaponSpawner;
+    [SerializeField] private WeaponsScriptableObject _allWeaponsData;
+
     public List<BaseWeapon> weapons;
     int currentIndex = 0;
 
     BaseWeapon CurrentWeapon => weapons[currentIndex];
+
+    public static WeaponManager Instance;
+
+    private void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        if(_weaponSpawner != null)
+            weapons = _weaponSpawner.SpawnAllWeapons(_allWeaponsData);
+    }
 
     void Update()
     {

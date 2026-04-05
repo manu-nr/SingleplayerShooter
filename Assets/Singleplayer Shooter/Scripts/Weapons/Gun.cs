@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public abstract class Gun : BaseWeapon
 {
     protected float lastFireTime;
+
+    public static event Action OnGunShoot;
 
     public override void Use()
     {
@@ -10,6 +13,7 @@ public abstract class Gun : BaseWeapon
         {
             Shoot();
             lastFireTime = Time.time;
+            OnGunShoot?.Invoke();
         }
     }
 
