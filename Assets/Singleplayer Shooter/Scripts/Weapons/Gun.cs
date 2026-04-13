@@ -3,6 +3,8 @@ using UnityEngine;
 
 public abstract class Gun : BaseWeapon
 {
+    [SerializeField] protected ParticleSystem _muzzleFlashParticle;
+
     protected float lastFireTime;
 
     public static event Action OnGunShoot;
@@ -14,6 +16,7 @@ public abstract class Gun : BaseWeapon
             Shoot();
             lastFireTime = Time.time;
             OnGunShoot?.Invoke();
+            _muzzleFlashParticle.Play();
         }
     }
 
