@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f50ca7a635d634eb7b133f7da12946, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
-  weaponName: Pistol
+  weaponName: 
   damage: 0
   fireRate: 1
-  maxAmmo: 10
+  maxAmmo: 0
+  recoilRate: 2

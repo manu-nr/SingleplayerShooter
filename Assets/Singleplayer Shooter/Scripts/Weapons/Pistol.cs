@@ -6,7 +6,7 @@ public class Pistol : Gun
 
     protected override void Shoot()
     {
-
+        Debug.Log("[NRM] On shoot");
     }
 
     public override void Reload() { }

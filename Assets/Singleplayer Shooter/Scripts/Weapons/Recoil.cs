@@ -12,6 +12,26 @@ public class Recoil : MonoBehaviour
     Vector3 currentRotation;
     Vector3 targetRotation;
 
+    public float _currentGunRecoilRate;
+
+
+    private void Start()
+    {
+        WeaponManager.OnGunChange += HandleGunChange;
+        Gun.OnGunShoot += ApplyRecoil;
+    }
+
+    private void OnDestroy()
+    {
+        WeaponManager.OnGunChange -= HandleGunChange;
+        Gun.OnGunShoot -= ApplyRecoil;
+    }
+
+    private void HandleGunChange(WeaponData data)
+    {
+        _currentGunRecoilRate = data.recoilRate;
+    }
+
     void Update()
     {
         // Return to neutral
@@ -22,7 +42,7 @@ public class Recoil : MonoBehaviour
 
         if (targetRotation != Vector3.zero || currentRotation != Vector3.zero)
 
-        transform.localRotation = Quaternion.Euler(currentRotation);
+        //transform.localRotation = Quaternion.Euler(currentRotation);
 
         if(Input.GetKeyDown(KeyCode.R))
             ApplyRecoil();
@@ -32,8 +52,12 @@ public class Recoil : MonoBehaviour
     {
         targetRotation += new Vector3(
             -recoilX,
-            Random.Range(-recoilY, recoilY),
+            Random.Range(-_currentGunRecoilRate, _currentGunRecoilRate),
             Random.Range(-recoilZ, recoilZ)
         );
+    }
+    public Quaternion GetRecoilRotation()
+    {
+        return Quaternion.Euler(currentRotation);
     }
 }

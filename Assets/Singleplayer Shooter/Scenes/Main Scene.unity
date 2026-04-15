@@ -34424,6 +34424,7 @@ MonoBehaviour:
   recoilZ: 1
   snappiness: 6
   returnSpeed: 2
+  _currentGunRecoilRate: 0
 --- !u!1001 &1056140030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41050,6 +41051,7 @@ GameObject:
   - component: {fileID: 1263335171}
   - component: {fileID: 1263335170}
   - component: {fileID: 1263335172}
+  - component: {fileID: 1263335173}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -41118,6 +41120,25 @@ MonoBehaviour:
   sprintSpeed: 8
   mouseSensitivity: 50
   cameraHolder: {fileID: 1126096236}
+  _recoil: {fileID: 1263335173}
+--- !u!114 &1263335173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263335169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56feec34398f74c42bd27e2c9e3b7d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilX: 2
+  recoilY: 2
+  recoilZ: 1
+  snappiness: 6
+  returnSpeed: 2
+  _currentGunRecoilRate: 0
 --- !u!1001 &1271249253
 PrefabInstance:
   m_ObjectHideFlags: 0

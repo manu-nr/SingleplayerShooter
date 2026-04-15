@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity = 100f;
     public Transform cameraHolder;
 
+    [SerializeField] private Recoil _recoil;
+
     private CharacterController controller;
     private Vector3 velocity;
     private float xRotation = 0f;
@@ -37,7 +39,9 @@ public class PlayerController : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        Quaternion baseRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        cameraHolder.localRotation = baseRotation * _recoil.GetRecoilRotation();
+
         transform.Rotate(Vector3.up * mouseX);
     }
 
