@@ -16,4 +16,4 @@ MonoBehaviour:
   damage: 0
   fireRate: 1
   maxAmmo: 0
-  recoilRate: 2
+  recoilRate: 26

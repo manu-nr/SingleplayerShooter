@@ -40,19 +40,19 @@ public class Recoil : MonoBehaviour
         // Smooth follow
         currentRotation = Vector3.Lerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
 
-        if (targetRotation != Vector3.zero || currentRotation != Vector3.zero)
+        //if (targetRotation != Vector3.zero || currentRotation != Vector3.zero)
 
         //transform.localRotation = Quaternion.Euler(currentRotation);
 
-        if(Input.GetKeyDown(KeyCode.R))
-            ApplyRecoil();
+        //if(Input.GetKeyDown(KeyCode.R))
+        //    ApplyRecoil();
     }
 
     public void ApplyRecoil()
     {
         targetRotation += new Vector3(
-            -recoilX,
-            Random.Range(-_currentGunRecoilRate, _currentGunRecoilRate),
+            -_currentGunRecoilRate,
+            Random.Range(-recoilY, recoilY),
             Random.Range(-recoilZ, recoilZ)
         );
     }

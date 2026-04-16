@@ -96,6 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5693384977058778251}
   - component: {fileID: 7043465836113782783}
+  - component: {fileID: 6490539268620662424}
   m_Layer: 0
   m_Name: Pistol_D
   m_TagString: Untagged
@@ -139,7 +140,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 2e4d629b5f7832b46a8d20f367a58bd3, type: 2}
   _muzzleFlashParticle: {fileID: 4506550404465993092}
+  _reloadAnimation: {fileID: 6490539268620662424}
   range: 100
+--- !u!111 &6490539268620662424
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4920507860935382577}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 03fb8dc0d0a6e024c940c399b6513252, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 03fb8dc0d0a6e024c940c399b6513252, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &5506949411328772694
 GameObject:
   m_ObjectHideFlags: 0

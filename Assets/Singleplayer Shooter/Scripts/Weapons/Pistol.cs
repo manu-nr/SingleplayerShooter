@@ -9,5 +9,4 @@ public class Pistol : Gun
         Debug.Log("[NRM] On shoot");
     }
 
-    public override void Reload() { }
 }
