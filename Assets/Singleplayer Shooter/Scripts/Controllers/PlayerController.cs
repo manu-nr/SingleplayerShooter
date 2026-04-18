@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity = 100f;
     public Transform cameraHolder;
 
+    [Space]
     [SerializeField] private Recoil _recoil;
     [SerializeField] private GameObject _crossHair;
 
