@@ -39,11 +39,17 @@ public class WeaponManager : MonoBehaviour
     {
         if (Input.GetButton("Fire1"))
         {
+            if (currentIndex == -1)
+                return;
+
             CurrentWeapon.Use();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            if (currentIndex == -1)
+                return;
+
             CurrentWeapon.Reload();
         }
 
