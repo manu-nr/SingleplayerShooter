@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5631389334271721366}
   - component: {fileID: 7465551466104256833}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Damageable
   m_TagString: Damagable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

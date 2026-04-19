@@ -2,23 +2,23 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamagableSpawner : MonoBehaviour
+public class DamageableSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _damagable;
+    [SerializeField] private GameObject _damageable;
     [SerializeField] private int _count = 5;
     [SerializeField] private float xRange = 8f;
     [SerializeField] private float zRange = 6f;
 
-    private List<GameObject> _damagableList = new List<GameObject>();
+    private List<GameObject> _damageableList = new List<GameObject>();
     [SerializeField] private int _currentIndex = -1;
 
     private void Start()
     {
         for(int i=0; i<_count; i++)
         {
-            GameObject damagable = Instantiate(_damagable, transform);
-            damagable.SetActive(false);
-            _damagableList.Add(damagable);
+            GameObject damageable = Instantiate(_damageable, transform);
+            damageable.SetActive(false);
+            _damageableList.Add(damageable);
         }
     }
 
@@ -31,15 +31,15 @@ public class DamagableSpawner : MonoBehaviour
     private void EnableAndSetPosition()
     {
         if (_currentIndex >= 0)
-            HideCurrentDamagable();
+            HideCurrentDamageable();
 
         _currentIndex++;
 
         if(_currentIndex == _count)
             _currentIndex = 0;
 
-        _damagableList[_currentIndex].SetActive(true);
-        _damagableList[_currentIndex].transform.SetLocalPositionAndRotation(GetRandomPosition(), Quaternion.identity);
+        _damageableList[_currentIndex].SetActive(true);
+        _damageableList[_currentIndex].transform.SetLocalPositionAndRotation(GetRandomPosition(), Quaternion.identity);
     }
 
     private Vector3 GetRandomPosition()
@@ -49,8 +49,8 @@ public class DamagableSpawner : MonoBehaviour
         return new Vector3 (xPosition, transform.position.y, zPosition);
     }
 
-    private void HideCurrentDamagable()
+    private void HideCurrentDamageable()
     {
-        _damagableList[_currentIndex].SetActive(false);
+        _damageableList[_currentIndex].SetActive(false);
     }
 }
