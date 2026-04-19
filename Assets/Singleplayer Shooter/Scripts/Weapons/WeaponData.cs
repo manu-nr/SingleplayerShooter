@@ -7,4 +7,6 @@ public class WeaponData : ScriptableObject
     public float damage;
     public float fireRate;
     public int maxAmmo;
+    public int magazineSize;
+    public int recoilRate;
 }

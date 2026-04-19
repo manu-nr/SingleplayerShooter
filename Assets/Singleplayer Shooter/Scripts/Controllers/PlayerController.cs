@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity = 100f;
     public Transform cameraHolder;
 
+    [Space]
+    [SerializeField] private Recoil _recoil;
+    [SerializeField] private GameObject _crossHair;
+
     private CharacterController controller;
     private Vector3 velocity;
     private float xRotation = 0f;
@@ -21,6 +25,12 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        WeaponManager.OnGunChange += HandleGunChange;
+    }
+
+    private void OnDestroy()
+    {
+        WeaponManager.OnGunChange -= HandleGunChange;
     }
 
     void Update()
@@ -37,7 +47,9 @@ public class PlayerController : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        Quaternion baseRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        cameraHolder.localRotation = baseRotation * _recoil.GetRecoilRotation();
+
         transform.Rotate(Vector3.up * mouseX);
     }
 
@@ -67,5 +79,11 @@ public class PlayerController : MonoBehaviour
         // Gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void HandleGunChange(WeaponData data)
+    {
+        if(!_crossHair.activeSelf)
+            _crossHair.SetActive(true);
     }
 }

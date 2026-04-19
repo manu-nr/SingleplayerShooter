@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public class WeaponManager : MonoBehaviour
     BaseWeapon CurrentWeapon => weapons[currentIndex];
 
     public static WeaponManager Instance;
+
+    public static Action<WeaponData> OnGunChange;
 
     private void Awake()
     {
@@ -36,11 +39,17 @@ public class WeaponManager : MonoBehaviour
     {
         if (Input.GetButton("Fire1"))
         {
+            if (currentIndex == -1)
+                return;
+
             CurrentWeapon.Use();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            if (currentIndex == -1)
+                return;
+
             CurrentWeapon.Reload();
         }
 
@@ -52,6 +61,7 @@ public class WeaponManager : MonoBehaviour
 
     void SwitchWeapon(int index)
     {
+        OnGunChange?.Invoke(weapons[index].data);
         weapons[currentIndex].gameObject.SetActive(false);
         currentIndex = index;
         weapons[currentIndex].gameObject.SetActive(true);
