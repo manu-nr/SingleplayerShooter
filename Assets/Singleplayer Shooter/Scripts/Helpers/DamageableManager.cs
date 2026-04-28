@@ -8,12 +8,23 @@ public class DamageableManager : MonoBehaviour
     [SerializeField] private int _count = 5;
     [SerializeField] private float xRange = 8f;
     [SerializeField] private float zRange = 6f;
+    [SerializeField] private float _damageableHealth = 100f;    
 
     private List<Damageable> _damageableList = new List<Damageable>();
     private int _currentIndex = -1;
     private Damageable _currentDamageable;
 
+    public static DamageableManager Instance;
+
     #region Unity Methods
+
+    private void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     private void Start()
     {
@@ -25,20 +36,20 @@ public class DamageableManager : MonoBehaviour
             _damageableList.Add(damageable);
         }
 
-        Gun.OnGunShoot += HandleOnGunShoot;
+        //GunShooter.OnDamageableHit += OnShootedDamageable;
     }
 
     private void OnDestroy()
     {
-        Gun.OnGunShoot -= HandleOnGunShoot;
-    }
+        //GunShooter.OnDamageableHit -= OnShootedDamageable;
 
+    }
 
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-            EnableAndSetPosition();
+        //if (Input.GetKeyDown(KeyCode.G))
+        //    EnableAndSetPosition();
     }
 
     #endregion
@@ -46,8 +57,8 @@ public class DamageableManager : MonoBehaviour
     #region Private Methods
     private void EnableAndSetPosition()
     {
-        if (_currentIndex >= 0)
-            HideCurrentDamageable();
+        //if (_currentIndex >= 0)
+        //    HideCurrentDamageable();
 
         _currentIndex++;
 
@@ -60,7 +71,7 @@ public class DamageableManager : MonoBehaviour
             return;
 
         _currentDamageable.gameObject.SetActive(true);
-        _currentDamageable._health = 100f; 
+        _currentDamageable._health = _damageableHealth; 
         _currentDamageable.transform.SetLocalPositionAndRotation(GetRandomPosition(), Quaternion.identity);
     }
 
@@ -77,8 +88,21 @@ public class DamageableManager : MonoBehaviour
     }
     #endregion
 
+    #region Public Methods
+    public void DestoryDamageable()
+    {
+        HideCurrentDamageable();
+    }
+
+    public void SpawnDamageable()
+    {
+        EnableAndSetPosition();
+    }
+
+    #endregion
+
     #region Handlers
-    private void HandleOnGunShoot(WeaponData data)
+    private void OnShootedDamageable(WeaponData data)
     {
         if(data != null && _currentDamageable != null)
         {
