@@ -15,7 +15,7 @@ public class GunShooter : MonoBehaviour
         Gun.OnGunShoot -= HandleGunShoot;
     }
 
-    private void HandleGunShoot()
+    private void HandleGunShoot(WeaponData data)
     {
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hit;

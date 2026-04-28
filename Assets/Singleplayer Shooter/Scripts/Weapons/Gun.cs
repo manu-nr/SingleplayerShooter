@@ -14,7 +14,7 @@ public abstract class Gun : BaseWeapon
 
     protected float lastFireTime;
 
-    public static event Action OnGunShoot;
+    public static event Action<WeaponData> OnGunShoot;
 
     private void Start()
     {
@@ -30,7 +30,7 @@ public abstract class Gun : BaseWeapon
             {
                 Shoot();
                 lastFireTime = Time.time;
-                OnGunShoot?.Invoke();
+                OnGunShoot?.Invoke(data);
                 _muzzleFlashParticle.Play();
                 _currentAmmo--;
             }

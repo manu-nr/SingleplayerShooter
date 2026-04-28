@@ -5571,7 +5571,7 @@ GameObject:
   - component: {fileID: 166338963}
   - component: {fileID: 166338964}
   m_Layer: 0
-  m_Name: Damageable Spawner
+  m_Name: Damageable Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5608,7 +5608,6 @@ MonoBehaviour:
   _count: 5
   xRange: 8
   zRange: 6
-  _currentIndex: -1
 --- !u!1001 &166881928
 PrefabInstance:
   m_ObjectHideFlags: 0

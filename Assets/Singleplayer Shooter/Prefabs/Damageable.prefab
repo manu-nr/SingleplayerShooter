@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8505473557371840579}
   - component: {fileID: 5631389334271721366}
   - component: {fileID: 7465551466104256833}
+  - component: {fileID: -6624532563812645085}
   m_Layer: 0
   m_Name: Damageable
   m_TagString: Damagable
@@ -108,3 +109,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6624532563812645085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450531954237735931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602a46cfb87592446af4d5fba92cce8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
