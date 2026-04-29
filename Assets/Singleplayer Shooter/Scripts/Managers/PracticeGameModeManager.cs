@@ -1,12 +1,20 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class PracticeGameModeManager : GameModeManager
 {
-    [SerializeField] private int TotalDamageables = 30;
-
+    [Header("Damageables")]
+    [SerializeField] private int _totalDamageables = 30;
     [SerializeField] private int _currentDamageableIndex = 0;
 
+    //[Header("UI")]
+    //[SerializeField] private GameObject _practiceGameModeUI;
+    //[SerializeField] private TextMeshProUGUI _remainingdamageablesCountText;
+
     private DamageableManager _damageableManager;
+
+    public static event Action<WeaponData, int, int> UpdateUI;
 
     #region Unity Methods
     protected override void Start()
@@ -30,13 +38,13 @@ public class PracticeGameModeManager : GameModeManager
         ResetVars();
         Debug.Log("[NRM] Game mode Begin");
         _damageableManager.SpawnDamageable();
+        UpdateUI?.Invoke(null, _totalDamageables, _totalDamageables - _currentDamageableIndex);
     }
 
     protected override void Complete()
     {
         base.Complete();
         Debug.Log("[NRM] Game mode Complete");
-
         ResetVars();
     }
 
@@ -55,11 +63,19 @@ public class PracticeGameModeManager : GameModeManager
             _damageableManager.DestoryDamageable();
             _currentDamageableIndex++;
 
-            if (_currentDamageableIndex < TotalDamageables)
+            if (_currentDamageableIndex < _totalDamageables)
+            {
                 _damageableManager.SpawnDamageable();
+                UpdateUI?.Invoke(data, _totalDamageables, _totalDamageables - _currentDamageableIndex);
+            }
             else
                 Complete();
         }
     }
+
+    //private void SetDamageablesCountText()
+    //{
+    //    _remainingdamageablesCountText.SetText($"{_totalDamageables - _currentDamageableIndex}/{_totalDamageables}");
+    //}
     #endregion
 }

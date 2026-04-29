@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameModeManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class GameModeManager : MonoBehaviour
 
     protected bool _isGameModeActive;
     protected ModeType _currentGameMode;
+
+    public static event Action<ModeType, bool> OnGameModeStateChange;
 
     #region Unity Methods
     protected virtual void Start()
@@ -24,12 +27,14 @@ public class GameModeManager : MonoBehaviour
     {
         _currentGameMode = ModeType.PRACTICE_MODE;
         _isGameModeActive = true;
+        OnGameModeStateChange?.Invoke(_currentGameMode, _isGameModeActive);
     }
 
     protected virtual void Complete()
     {
-        _currentGameMode = ModeType.NONE;
         _isGameModeActive = false;
+        OnGameModeStateChange?.Invoke(_currentGameMode, _isGameModeActive);
+        _currentGameMode = ModeType.NONE;
     }
     #endregion
 
