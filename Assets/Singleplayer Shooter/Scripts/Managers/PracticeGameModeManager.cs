@@ -14,7 +14,7 @@ public class PracticeGameModeManager : GameModeManager
 
     private DamageableManager _damageableManager;
 
-    public static event Action<WeaponData, int, int> UpdateUI;
+    public static event Action<int, int> UpdateDamageablesCountUI;
 
     #region Unity Methods
     protected override void Start()
@@ -38,7 +38,7 @@ public class PracticeGameModeManager : GameModeManager
         ResetVars();
         Debug.Log("[NRM] Game mode Begin");
         _damageableManager.SpawnDamageable();
-        UpdateUI?.Invoke(null, _totalDamageables, _totalDamageables - _currentDamageableIndex);
+        UpdateDamageablesCountUI?.Invoke(_totalDamageables, _totalDamageables - _currentDamageableIndex);
     }
 
     protected override void Complete()
@@ -66,7 +66,7 @@ public class PracticeGameModeManager : GameModeManager
             if (_currentDamageableIndex < _totalDamageables)
             {
                 _damageableManager.SpawnDamageable();
-                UpdateUI?.Invoke(data, _totalDamageables, _totalDamageables - _currentDamageableIndex);
+                UpdateDamageablesCountUI?.Invoke(_totalDamageables, _totalDamageables - _currentDamageableIndex);
             }
             else
                 Complete();

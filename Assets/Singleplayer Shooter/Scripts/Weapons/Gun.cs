@@ -14,6 +14,8 @@ public abstract class Gun : BaseWeapon
 
     protected float lastFireTime;
 
+    public int CurrentAmmo => _currentAmmo;
+
     public static event Action<WeaponData> OnGunShoot;
 
     private void Start()

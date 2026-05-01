@@ -11,7 +11,9 @@ public class GameUIManager : MonoBehaviour
     private void Start()
     {
         GameModeManager.OnGameModeStateChange += HandleGameModeStateChange;
-        PracticeGameModeManager.UpdateUI += UpdatePracticeModeUI;
+        PracticeGameModeManager.UpdateDamageablesCountUI += UpdateDamageablesCountUI;
+        WeaponManager.OnGunChange += UpdateGunUI;
+        Gun.OnGunShoot += UpdateGunUI;
 
         DisableAllUI();
     }
@@ -19,6 +21,9 @@ public class GameUIManager : MonoBehaviour
     private void OnDestroy()
     {
         GameModeManager.OnGameModeStateChange -= HandleGameModeStateChange;
+        PracticeGameModeManager.UpdateDamageablesCountUI -= UpdateDamageablesCountUI;
+        WeaponManager.OnGunChange -= UpdateGunUI;
+        Gun.OnGunShoot -= UpdateGunUI;
     }
 
     private void DisableAllUI()
@@ -38,8 +43,24 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    private void UpdatePracticeModeUI(WeaponData data, int totalDamageables, int remainingDamageables)
+    private void UpdateDamageablesCountUI(int totalDamageables, int remainingDamageables)
     {
-        _practiceGameUI?.UpdateUI(data, totalDamageables, remainingDamageables);
+        switch (_currentGameMode)
+        {
+            case ModeType.PRACTICE_MODE:
+                _practiceGameUI?.UpdateDamageablesUI(totalDamageables, remainingDamageables);
+                break;
+        }
+        
+    }
+
+    private void UpdateGunUI(WeaponData data)
+    {
+        switch (_currentGameMode)
+        {
+            case ModeType.PRACTICE_MODE:
+                _practiceGameUI?.UpdateWeaponsUI(data);
+                break;
+        }
     }
 }

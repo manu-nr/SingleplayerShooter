@@ -7,10 +7,10 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private WeaponSpawner _weaponSpawner;
     [SerializeField] private WeaponsScriptableObject _allWeaponsData;
 
-    public List<BaseWeapon> weapons;
+    public List<Gun> weapons;
     int currentIndex = 0;
 
-    BaseWeapon CurrentWeapon => weapons[currentIndex];
+    public Gun CurrentWeapon => weapons[currentIndex];
 
     public static WeaponManager Instance;
 
@@ -59,7 +59,7 @@ public class WeaponManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
     }
 
-    void SwitchWeapon(int index)
+    public void SwitchWeapon(int index)
     {
         OnGunChange?.Invoke(weapons[index].data);
         weapons[currentIndex].gameObject.SetActive(false);

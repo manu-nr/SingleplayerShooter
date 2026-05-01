@@ -28,6 +28,7 @@ public class GameModeManager : MonoBehaviour
         _currentGameMode = ModeType.PRACTICE_MODE;
         _isGameModeActive = true;
         OnGameModeStateChange?.Invoke(_currentGameMode, _isGameModeActive);
+        WeaponManager.Instance.SwitchWeapon(0);
     }
 
     protected virtual void Complete()
