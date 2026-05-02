@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,6 +14,10 @@ public class PlayerController : MonoBehaviour
     public float mouseSensitivity = 100f;
     public Transform cameraHolder;
 
+    [Space]
+    [SerializeField] private Recoil _recoil;
+    [SerializeField] private GameObject _crossHair;
+
     private CharacterController controller;
     private Vector3 velocity;
     private float xRotation = 0f;
@@ -21,6 +26,12 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        GameModeManager.OnGameModeStateChange += HandleGameModeUpdate;
+    }
+
+    private void OnDestroy()
+    {
+        GameModeManager.OnGameModeStateChange -= HandleGameModeUpdate;
     }
 
     void Update()
@@ -37,7 +48,9 @@ public class PlayerController : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        Quaternion baseRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        cameraHolder.localRotation = baseRotation * _recoil.GetRecoilRotation();
+
         transform.Rotate(Vector3.up * mouseX);
     }
 
@@ -67,5 +80,13 @@ public class PlayerController : MonoBehaviour
         // Gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void HandleGameModeUpdate(ModeType type, bool started)
+    {
+        if (started)
+            _crossHair.SetActive(true);
+        else
+            _crossHair.SetActive(false);
     }
 }
