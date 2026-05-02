@@ -10,9 +10,15 @@ public class MainMenuManager : MonoBehaviour
 
     public static event Action<ModeType, bool> OnMenuOptionSelected;
 
+    #region Unity Methods
     private void Start()
     {
+        GameModeManager.OnGameModeStateChange += HandleGameModeStateChange;
+    }
 
+    private void OnDestroy()
+    {
+        GameModeManager.OnGameModeStateChange -= HandleGameModeStateChange;
     }
 
     private void Update()
@@ -23,13 +29,17 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    private void HandleGameModeStateChange(ModeType type, bool isActive)
+    {
+        _menuCanvas.SetActive(!_isMenuActive);
+    }
+
     private void ToggleMenu(ModeType type)
     {
         OnMenuOptionSelected?.Invoke(type, _isMenuActive);
         _isMenuActive = !_isMenuActive;
         _menuCanvas.SetActive(_isMenuActive);
     }
-
-   
-
 }

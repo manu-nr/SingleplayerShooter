@@ -36,7 +36,6 @@ public class PracticeGameModeManager : GameModeManager
     {
         base.Begin();
         ResetVars();
-        Debug.Log("[NRM] Game mode Begin");
         _damageableManager.SpawnDamageable();
         UpdateDamageablesCountUI?.Invoke(_totalDamageables, _totalDamageables - _currentDamageableIndex);
     }
@@ -44,7 +43,6 @@ public class PracticeGameModeManager : GameModeManager
     protected override void Complete()
     {
         base.Complete();
-        Debug.Log("[NRM] Game mode Complete");
         ResetVars();
     }
 

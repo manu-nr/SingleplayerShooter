@@ -36,6 +36,7 @@ public class GameModeManager : MonoBehaviour
         _isGameModeActive = false;
         OnGameModeStateChange?.Invoke(_currentGameMode, _isGameModeActive);
         _currentGameMode = ModeType.NONE;
+        WeaponManager.Instance.HideCurrentGun();
     }
     #endregion
 

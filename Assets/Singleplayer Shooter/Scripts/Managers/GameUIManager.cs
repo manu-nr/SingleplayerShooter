@@ -14,6 +14,7 @@ public class GameUIManager : MonoBehaviour
         PracticeGameModeManager.UpdateDamageablesCountUI += UpdateDamageablesCountUI;
         WeaponManager.OnGunChange += UpdateGunUI;
         Gun.OnGunShoot += UpdateGunUI;
+        Gun.OnGunReloaded += UpdateGunUI;
 
         DisableAllUI();
     }
@@ -24,6 +25,7 @@ public class GameUIManager : MonoBehaviour
         PracticeGameModeManager.UpdateDamageablesCountUI -= UpdateDamageablesCountUI;
         WeaponManager.OnGunChange -= UpdateGunUI;
         Gun.OnGunShoot -= UpdateGunUI;
+        Gun.OnGunReloaded -= UpdateGunUI;
     }
 
     private void DisableAllUI()
@@ -56,6 +58,7 @@ public class GameUIManager : MonoBehaviour
 
     private void UpdateGunUI(WeaponData data)
     {
+        Debug.Log("[NRM] Updating gun ui");
         switch (_currentGameMode)
         {
             case ModeType.PRACTICE_MODE:

@@ -16,7 +16,9 @@ public class PracticeGameModeUIManager : MonoBehaviour
 
     public void UpdateWeaponsUI(WeaponData data)
     {
+        Debug.Log("[NRM] After switch Current ammo: " + WeaponManager.Instance.CurrentWeapon.CurrentAmmo);
         _currentGun.SetText("Gun: " + data.weaponName);
         _currentGunAmmoText.SetText($"Ammo: {WeaponManager.Instance.CurrentWeapon.CurrentAmmo} / {data.magazineSize}");
+        _totalAmmo.SetText($"{WeaponManager.Instance.CurrentWeapon.TotalAmmo}");
     }
 }
