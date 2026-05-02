@@ -6,8 +6,9 @@ public abstract class Gun : BaseWeapon
 {
     [SerializeField] protected ParticleSystem _muzzleFlashParticle;
     [SerializeField] protected Animation _reloadAnimation;
-    [SerializeField] protected int _currentAmmo;
-    [SerializeField] protected int _totalAmmo;
+
+    protected int _currentAmmo;
+    protected int _totalAmmo;
 
     private Coroutine _reloadCoroutine;
     private bool _isReloading;
