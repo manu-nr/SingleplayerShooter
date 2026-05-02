@@ -14,12 +14,23 @@ public abstract class Gun : BaseWeapon
 
     protected float lastFireTime;
 
-    public static event Action OnGunShoot;
+    public int CurrentAmmo => _currentAmmo;
+    public int TotalAmmo => _totalAmmo;
 
-    private void Start()
+    public static event Action<WeaponData> OnGunShoot;
+    public static event Action<WeaponData> OnGunReloaded;
+
+    private void Awake()
     {
         _totalAmmo = data.maxAmmo;
         _currentAmmo = data.magazineSize;
+    }
+
+    private void Start()
+    {
+        //_totalAmmo = data.maxAmmo;
+        //_currentAmmo = data.magazineSize;
+        //Debug.Log("[NRM] Setting currentAmmo to: " + _currentAmmo);
     }
 
     public override void Use()
@@ -30,9 +41,9 @@ public abstract class Gun : BaseWeapon
             {
                 Shoot();
                 lastFireTime = Time.time;
-                OnGunShoot?.Invoke();
                 _muzzleFlashParticle.Play();
                 _currentAmmo--;
+                OnGunShoot?.Invoke(data);
             }
         }
     }
@@ -71,5 +82,6 @@ public abstract class Gun : BaseWeapon
             _currentAmmo += _totalAmmo;
             _totalAmmo = 0;
         }
+        OnGunReloaded?.Invoke(data);
     }
 }

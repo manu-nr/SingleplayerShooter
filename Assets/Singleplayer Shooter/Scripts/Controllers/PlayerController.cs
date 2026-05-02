@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -25,12 +26,12 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
-        WeaponManager.OnGunChange += HandleGunChange;
+        GameModeManager.OnGameModeStateChange += HandleGameModeUpdate;
     }
 
     private void OnDestroy()
     {
-        WeaponManager.OnGunChange -= HandleGunChange;
+        GameModeManager.OnGameModeStateChange -= HandleGameModeUpdate;
     }
 
     void Update()
@@ -81,9 +82,11 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    private void HandleGunChange(WeaponData data)
+    private void HandleGameModeUpdate(ModeType type, bool started)
     {
-        if(!_crossHair.activeSelf)
+        if (started)
             _crossHair.SetActive(true);
+        else
+            _crossHair.SetActive(false);
     }
 }

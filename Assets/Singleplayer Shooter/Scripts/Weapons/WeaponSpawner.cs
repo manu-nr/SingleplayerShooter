@@ -6,13 +6,13 @@ public class WeaponSpawner : MonoBehaviour
 {
     [SerializeField] private Transform _weaponHolder;
 
-    public List<BaseWeapon> SpawnAllWeapons(WeaponsScriptableObject allWeapons)
+    public List<Gun> SpawnAllWeapons(WeaponsScriptableObject allWeapons)
     {
-        List<BaseWeapon> spawnedWeapons = new List<BaseWeapon>();
+        List<Gun> spawnedWeapons = new List<Gun>();
 
         foreach(var weapon in allWeapons._weaponPrefab)
         {
-            BaseWeapon baseWeapon = Instantiate(weapon, _weaponHolder);
+            Gun baseWeapon = Instantiate(weapon, _weaponHolder);
             baseWeapon.gameObject.SetActive(false);
             spawnedWeapons.Add(baseWeapon);
         }

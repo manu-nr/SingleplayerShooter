@@ -48,7 +48,7 @@ public class Recoil : MonoBehaviour
         //    ApplyRecoil();
     }
 
-    public void ApplyRecoil()
+    public void ApplyRecoil(WeaponData data)
     {
         targetRotation += new Vector3(
             -_currentGunRecoilRate,

@@ -7,10 +7,10 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private WeaponSpawner _weaponSpawner;
     [SerializeField] private WeaponsScriptableObject _allWeaponsData;
 
-    public List<BaseWeapon> weapons;
-    int currentIndex = 0;
+    public List<Gun> weapons;
+    private int _currentIndex = -1;
 
-    BaseWeapon CurrentWeapon => weapons[currentIndex];
+    public Gun CurrentWeapon => weapons[_currentIndex];
 
     public static WeaponManager Instance;
 
@@ -39,7 +39,7 @@ public class WeaponManager : MonoBehaviour
     {
         if (Input.GetButton("Fire1"))
         {
-            if (currentIndex == -1)
+            if (_currentIndex == -1)
                 return;
 
             CurrentWeapon.Use();
@@ -47,7 +47,7 @@ public class WeaponManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (currentIndex == -1)
+            if (_currentIndex == -1)
                 return;
 
             CurrentWeapon.Reload();
@@ -59,11 +59,22 @@ public class WeaponManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchWeapon(2);
     }
 
-    void SwitchWeapon(int index)
+    public void SwitchWeapon(int index)
     {
+        if(_currentIndex != -1)
+            weapons[_currentIndex].gameObject.SetActive(false);
+
+        _currentIndex = index;
+        weapons[_currentIndex].gameObject.SetActive(true);
         OnGunChange?.Invoke(weapons[index].data);
-        weapons[currentIndex].gameObject.SetActive(false);
-        currentIndex = index;
-        weapons[currentIndex].gameObject.SetActive(true);
+    }
+
+    public void HideCurrentGun()
+    {
+        if(_currentIndex != -1)
+        {
+            weapons[_currentIndex].gameObject.SetActive(false);
+            _currentIndex = -1;
+        }
     }
 }

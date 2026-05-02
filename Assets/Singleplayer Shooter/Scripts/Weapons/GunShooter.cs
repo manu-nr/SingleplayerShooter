@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 public class GunShooter : MonoBehaviour
 {
     [SerializeField] private Transform _camera;
     [SerializeField] private float _range = 100f;
+
+    public static event Action<WeaponData> OnDamageableHit;
 
     private void Start()
     {
@@ -15,7 +18,7 @@ public class GunShooter : MonoBehaviour
         Gun.OnGunShoot -= HandleGunShoot;
     }
 
-    private void HandleGunShoot()
+    private void HandleGunShoot(WeaponData data)
     {
         Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
         RaycastHit hit;
@@ -24,6 +27,7 @@ public class GunShooter : MonoBehaviour
         {
             if (hit.collider.CompareTag("Damagable"))
             {
+                OnDamageableHit?.Invoke(data);
                 Debug.Log("[NRM] Hitted Damagable");
             }
         }
