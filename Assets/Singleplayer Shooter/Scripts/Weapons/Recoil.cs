@@ -12,7 +12,7 @@ public class Recoil : MonoBehaviour
     Vector3 currentRotation;
     Vector3 targetRotation;
 
-    public float _currentGunRecoilRate;
+    public float CurrentGunRecoilRate;
 
 
     private void Start()
@@ -29,7 +29,7 @@ public class Recoil : MonoBehaviour
 
     private void HandleGunChange(WeaponData data)
     {
-        _currentGunRecoilRate = data.recoilRate;
+        CurrentGunRecoilRate = data.recoilRate;
     }
 
     void Update()
@@ -51,7 +51,7 @@ public class Recoil : MonoBehaviour
     public void ApplyRecoil(WeaponData data)
     {
         targetRotation += new Vector3(
-            -_currentGunRecoilRate,
+            -CurrentGunRecoilRate,
             Random.Range(-recoilY, recoilY),
             Random.Range(-recoilZ, recoilZ)
         );
