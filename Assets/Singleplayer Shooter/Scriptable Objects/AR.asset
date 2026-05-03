@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: AR
   damage: 100
-  fireRate: 0.2
+  fireRate: 2
   maxAmmo: 30
   magazineSize: 30
-  recoilRate: 5
+  recoilRate: 2
