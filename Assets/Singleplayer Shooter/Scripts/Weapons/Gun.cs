@@ -23,8 +23,7 @@ public abstract class Gun : BaseWeapon
 
     private void Awake()
     {
-        _totalAmmo = data.maxAmmo;
-        _currentAmmo = data.magazineSize;
+        ResetAmmo();
     }
 
     private void Start()
@@ -32,6 +31,13 @@ public abstract class Gun : BaseWeapon
         //_totalAmmo = data.maxAmmo;
         //_currentAmmo = data.magazineSize;
         //Debug.Log("[NRM] Setting currentAmmo to: " + _currentAmmo);
+
+        GameModeManager.OnGameModeStateChange += HandleGameModeStateChange;
+    }
+
+    private void OnDestroy()
+    {
+        GameModeManager.OnGameModeStateChange -= HandleGameModeStateChange;
     }
 
     public override void Use()
@@ -84,5 +90,18 @@ public abstract class Gun : BaseWeapon
             _totalAmmo = 0;
         }
         OnGunReloaded?.Invoke(data);
+    }
+    private void HandleGameModeStateChange(ModeType type, bool started)
+    {
+        if(!started)
+        {
+            ResetAmmo();
+        }
+    }
+
+    private void ResetAmmo()
+    {
+        _totalAmmo = data.maxAmmo;
+        _currentAmmo = data.magazineSize;
     }
 }
