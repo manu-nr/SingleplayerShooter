@@ -9,9 +9,13 @@ public class PracticeGameModeUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _currentGunAmmoText;
     [SerializeField] private TextMeshProUGUI _totalAmmo;
     [SerializeField] private TextMeshProUGUI _timerText;
+    [SerializeField] private TextMeshProUGUI _highScoreText;
 
     private float _timer;
     private bool _runTimer;
+
+    private float _highScoreTime;
+    private bool _isHighScoreSet;
 
     #region Unity Methods
     private void Start()
@@ -57,7 +61,11 @@ public class PracticeGameModeUIManager : MonoBehaviour
         if(type == ModeType.PRACTICE_MODE)
         {
             if (isStarted)
+            {
+                
+                SetHighScoreText();
                 StartTimer();
+            }
             else
                 StopTimer();
         }
@@ -72,6 +80,48 @@ public class PracticeGameModeUIManager : MonoBehaviour
     private void StopTimer()
     {
         _runTimer = false;
+        SaveHighScore();
+    }
+
+    private void SetHighScoreText()
+    {
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
+            _isHighScoreSet = true;
+            _highScoreTime = PlayerPrefs.GetFloat("HighScore");
+
+            int seconds = Mathf.FloorToInt(_highScoreTime % 60);
+            int minutes = Mathf.FloorToInt(_highScoreTime / 60);
+
+            _highScoreText.SetText(string.Format("{0:00}:{1:00}", minutes, seconds));
+        }
+        else
+        {
+            _isHighScoreSet = false;
+            _highScoreText.SetText("None");
+        }
+    }
+
+    private void SaveHighScore()
+    {
+        bool saveHighScore = false;
+
+        if (!_isHighScoreSet)
+        {
+            _highScoreTime = _timer;
+            saveHighScore = true;
+        }
+        else
+        {
+            if (_timer < _highScoreTime)
+            {
+                _highScoreTime = _timer;
+                saveHighScore = true;
+            }
+        }
+
+        if (saveHighScore)
+            PlayerPrefs.SetFloat("HighScore", _highScoreTime);
     }
     #endregion
 }
