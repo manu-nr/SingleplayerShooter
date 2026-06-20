@@ -25,7 +25,7 @@ public class MainMenuManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P) && _isMenuActive)
         {
-            ToggleMenu(ModeType.PRACTICE_MODE);
+            OnMenuOptionSelected?.Invoke(ModeType.PRACTICE_MODE, _isMenuActive);
         }
     }
 
@@ -33,12 +33,11 @@ public class MainMenuManager : MonoBehaviour
 
     private void HandleGameModeStateChange(ModeType type, bool isActive)
     {
-        _menuCanvas.SetActive(!_isMenuActive);
+        ToggleMenu(type);
     }
 
     private void ToggleMenu(ModeType type)
     {
-        OnMenuOptionSelected?.Invoke(type, _isMenuActive);
         _isMenuActive = !_isMenuActive;
         _menuCanvas.SetActive(_isMenuActive);
     }
