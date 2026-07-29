@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private float xRotation = 0f;
 
+    private bool _isMovementEnabled = false;
+
+    public bool IsMovementEnabled => _isMovementEnabled;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -36,8 +40,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleMouseLook();
-        HandleMovement();
+        if (_isMovementEnabled)
+        {
+            HandleMouseLook();
+            HandleMovement();
+        }
     }
 
     void HandleMouseLook()
@@ -85,8 +92,19 @@ public class PlayerController : MonoBehaviour
     private void HandleGameModeUpdate(ModeType type, bool started)
     {
         if (started)
-            _crossHair.SetActive(true);
+            ToggleCrossHair(true);
         else
-            _crossHair.SetActive(false);
+            ToggleCrossHair(false);
+    }
+
+    private void ToggleCrossHair(bool show)
+    {
+        if(_crossHair != null)
+            _crossHair.SetActive(show);
+    }
+
+    public void EnableMovement()
+    {
+        _isMovementEnabled = true;
     }
 }
