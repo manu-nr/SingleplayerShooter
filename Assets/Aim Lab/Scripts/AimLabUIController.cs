@@ -1,51 +1,54 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AimLabUIController : MonoBehaviour
+namespace AimLab
 {
-    [SerializeField] private Canvas _aimLabCanvas;
-
-    [SerializeField] private ModeButton _easyButton;
-    [SerializeField] private ModeButton _mediumButton;
-    [SerializeField] private ModeButton _hardButton;
-    [SerializeField] private Button _startButton;
-
-    private AimDifficulty _selectedDifficulty;
-
-    private void Start()
+    public class AimLabUIController : MonoBehaviour
     {
-        _startButton.onClick.AddListener(OnStartButtonClicked);
-        _easyButton.GetComponent<Button>().onClick.AddListener(() => SetGameMode(AimDifficulty.Easy));
-        _mediumButton.GetComponent<Button>().onClick.AddListener(() => SetGameMode(AimDifficulty.Medium));
-        _hardButton.GetComponent<Button>().onClick.AddListener(() => SetGameMode(AimDifficulty.Hard));
+        [SerializeField] private Canvas _aimLabCanvas;
 
-        ToggleStartButton(false);
-    }
+        [SerializeField] private ModeButton _easyButton;
+        [SerializeField] private ModeButton _mediumButton;
+        [SerializeField] private ModeButton _hardButton;
+        [SerializeField] private Button _startButton;
 
-    private void SetGameMode(AimDifficulty difficulty)
-    {
-        _easyButton.SetTickMarkActive(difficulty == AimDifficulty.Easy);
-        _mediumButton.SetTickMarkActive(difficulty == AimDifficulty.Medium);
-        _hardButton.SetTickMarkActive(difficulty == AimDifficulty.Hard);
+        private AimDifficulty _selectedDifficulty;
 
-        ToggleStartButton(true);
-    }
+        private void Start()
+        {
+            _startButton.onClick.AddListener(OnStartButtonClicked);
+            _easyButton.GetComponent<Button>().onClick.AddListener(() => SetGameMode(AimDifficulty.Easy));
+            _mediumButton.GetComponent<Button>().onClick.AddListener(() => SetGameMode(AimDifficulty.Medium));
+            _hardButton.GetComponent<Button>().onClick.AddListener(() => SetGameMode(AimDifficulty.Hard));
 
-    private void ToggleStartButton(bool show)
-    {
-        if (_startButton != null)
-            _startButton.interactable = show;
-    }
+            ToggleStartButton(false);
+        }
 
-    private void OnStartButtonClicked()
-    {
-        _aimLabCanvas.enabled = false;
-        AimLabManager.Instance.StartGame(_selectedDifficulty);
-    }
+        private void SetGameMode(AimDifficulty difficulty)
+        {
+            _easyButton.SetTickMarkActive(difficulty == AimDifficulty.Easy);
+            _mediumButton.SetTickMarkActive(difficulty == AimDifficulty.Medium);
+            _hardButton.SetTickMarkActive(difficulty == AimDifficulty.Hard);
 
-    private void ToggleCanvas(bool show)
-    {
-        if (_aimLabCanvas != null)
-            _aimLabCanvas.enabled = show;
+            ToggleStartButton(true);
+        }
+
+        private void ToggleStartButton(bool show)
+        {
+            if (_startButton != null)
+                _startButton.interactable = show;
+        }
+
+        private void OnStartButtonClicked()
+        {
+            _aimLabCanvas.enabled = false;
+            AimLabManager.Instance.StartGame(_selectedDifficulty);
+        }
+
+        private void ToggleCanvas(bool show)
+        {
+            if (_aimLabCanvas != null)
+                _aimLabCanvas.enabled = show;
+        }
     }
 }

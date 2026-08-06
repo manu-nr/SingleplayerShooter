@@ -1,39 +1,48 @@
+using System;
 using UnityEngine;
 
-public class AimLabManager : MonoBehaviour
+namespace AimLab
 {
-    [SerializeField] private WeaponManager _weaponManager;
-    [SerializeField] private PlayerController _playerController;
-
-    public static AimLabManager Instance;
-
-    private void Awake()
+    public class AimLabManager : MonoBehaviour
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-    }
+        [SerializeField] private WeaponManager _weaponManager;
+        [SerializeField] private PlayerController _playerController;
 
-    private void Start()
-    {
-        TogglePlayer(false);
-    }
+        public static AimLabManager Instance;
+        public static Action<AimDifficulty> OnGameModeSelected;
 
-    private void TogglePlayer(bool show)
-    {
-        if(_playerController != null)
+        private void Awake()
         {
-            _playerController.gameObject.SetActive(show);
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
         }
+
+        private void Start()
+        {
+            TogglePlayer(false);
+        }
+
+        private void TogglePlayer(bool show)
+        {
+            if (_playerController != null)
+            {
+                _playerController.gameObject.SetActive(show);
+
+                if (show)
+                    Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
+
+        public void StartGame(AimDifficulty difficulty)
+        {
+            OnGameModeSelected?.Invoke(difficulty);
+            TogglePlayer(true);
+        }
+
+
     }
-
-    public void StartGame(AimDifficulty difficulty)
-    {
-        TogglePlayer(true);
-    }
-
-
 }
 
 public enum AimDifficulty
