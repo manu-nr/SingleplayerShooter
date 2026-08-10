@@ -1,3 +1,4 @@
+using AimLab;
 using System;
 using UnityEngine;
 
@@ -29,12 +30,28 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        GameModeManager.OnGameModeStateChange += HandleGameModeUpdate;
+        ToggleMovement(false);
+        AimLabManager.OnGameModeSelected += HandleGameModeUpdate;
     }
 
     private void OnDestroy()
     {
-        GameModeManager.OnGameModeStateChange -= HandleGameModeUpdate;
+        AimLabManager.OnGameModeSelected += HandleGameModeUpdate;
+    }
+
+    private void HandleGameModeUpdate(bool started, AimDifficulty difficulty)
+    {
+        if (started)
+        {
+            Debug.Log("[NRM] Starting the game enabling the movement");
+            ToggleCrossHair(true);
+            ToggleMovement(true);
+        }
+        else
+        {
+            ToggleCrossHair(false);
+            ToggleMovement(false);
+        }
     }
 
     void Update()
@@ -42,7 +59,7 @@ public class PlayerController : MonoBehaviour
         if (_isMovementEnabled)
         {
             HandleMouseLook();
-            HandleMovement();
+            //HandleMovement();
         }
     }
 
@@ -88,22 +105,17 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    private void HandleGameModeUpdate(ModeType type, bool started)
-    {
-        if (started)
-            ToggleCrossHair(true);
-        else
-            ToggleCrossHair(false);
-    }
-
     private void ToggleCrossHair(bool show)
     {
         if(_crossHair != null)
             _crossHair.SetActive(show);
     }
 
-    public void EnableMovement()
+    private void ToggleMovement(bool isOn)
     {
-        _isMovementEnabled = true;
+        _isMovementEnabled = isOn;
+
+        if (isOn)
+            Cursor.lockState = CursorLockMode.Locked;
     }
 }

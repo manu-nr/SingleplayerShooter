@@ -9,7 +9,7 @@ namespace AimLab
         [SerializeField] private PlayerController _playerController;
 
         public static AimLabManager Instance;
-        public static Action<AimDifficulty> OnGameModeSelected;
+        public static Action<bool, AimDifficulty> OnGameModeSelected;
 
         private void Awake()
         {
@@ -21,24 +21,18 @@ namespace AimLab
 
         private void Start()
         {
-            TogglePlayer(false);
+
         }
 
-        private void TogglePlayer(bool show)
-        {
-            if (_playerController != null)
-            {
-                _playerController.gameObject.SetActive(show);
-
-                if (show)
-                    Cursor.lockState = CursorLockMode.Locked;
-            }
-        }
 
         public void StartGame(AimDifficulty difficulty)
         {
-            OnGameModeSelected?.Invoke(difficulty);
-            TogglePlayer(true);
+            OnGameModeSelected?.Invoke(true, difficulty);
+        }
+
+        public void EndGame(AimDifficulty difficulty)
+        {
+            OnGameModeSelected?.Invoke(false, difficulty);
         }
 
 

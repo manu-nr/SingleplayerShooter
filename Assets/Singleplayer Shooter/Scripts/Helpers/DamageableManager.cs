@@ -35,21 +35,17 @@ public class DamageableManager : MonoBehaviour
             Damageable damageable = damageableGameObject.GetComponent<Damageable>();
             _damageableList.Add(damageable);
         }
-
-        //GunShooter.OnDamageableHit += OnShootedDamageable;
     }
 
     private void OnDestroy()
     {
-        //GunShooter.OnDamageableHit -= OnShootedDamageable;
 
     }
 
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.G))
-        //    EnableAndSetPosition();
+
     }
 
     #endregion
@@ -57,9 +53,6 @@ public class DamageableManager : MonoBehaviour
     #region Private Methods
     private void EnableAndSetPosition()
     {
-        //if (_currentIndex >= 0)
-        //    HideCurrentDamageable();
-
         _currentIndex++;
 
         if(_currentIndex == _count)

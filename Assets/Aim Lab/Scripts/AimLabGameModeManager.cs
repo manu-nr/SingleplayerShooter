@@ -25,14 +25,14 @@ namespace AimLab
             AimLabManager.OnGameModeSelected -= OnGameModeSelected;
         }
 
-        private void OnGameModeSelected(AimDifficulty difficulty)
+        private void OnGameModeSelected(bool started, AimDifficulty difficulty)
         {
-            _currentMode = GetCurrentModeData(difficulty);
-            if (_currentMode != null)
-            {
-                _currentDamageableSpeed = _currentMode.damageableSpeed;
-                _currentDamageableSize = _currentMode.damageableSize;
-            }
+            //_currentMode = GetCurrentModeData(difficulty);
+            //if (_currentMode != null)
+            //{
+            //    _currentDamageableSpeed = _currentMode.damageableSpeed;
+            //    _currentDamageableSize = _currentMode.damageableSize;
+            //}
         }
 
         private GameModeScriptableObject GetCurrentModeData(AimDifficulty difficulty)
