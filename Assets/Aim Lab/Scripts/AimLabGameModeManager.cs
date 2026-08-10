@@ -27,12 +27,16 @@ namespace AimLab
 
         private void OnGameModeSelected(bool started, AimDifficulty difficulty)
         {
-            //_currentMode = GetCurrentModeData(difficulty);
-            //if (_currentMode != null)
-            //{
-            //    _currentDamageableSpeed = _currentMode.damageableSpeed;
-            //    _currentDamageableSize = _currentMode.damageableSize;
-            //}
+            if (started)
+            {
+                _currentMode = GetCurrentModeData(difficulty);
+
+                //if (_currentMode != null)
+                //{
+                //    _currentDamageableSpeed = _currentMode.damageableSpeed;
+                //    _currentDamageableSize = _currentMode.damageableSize;
+                //}
+            }
         }
 
         private GameModeScriptableObject GetCurrentModeData(AimDifficulty difficulty)

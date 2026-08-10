@@ -5677,14 +5677,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 166338962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb4ba1ae9467c946903252fd34342bd, type: 3}
+  m_Script: {fileID: 11500000, guid: bd65f993c092dec4bb3862464e807e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damageable: {fileID: 1450531954237735931, guid: 262a528b7a2c7984095cd8b50cc7346d, type: 3}
-  _count: 5
-  xRange: 8
-  zRange: 6
-  _damageableHealth: 100
+  _damageablePrefab: {fileID: 8056580649766038952, guid: f552358268c5117429fe6d3d69f85d7f, type: 3}
+  _spawnPoint: {fileID: 166338963}
+  _horizontalRange: 5
+  _defaultPoolSize: 10
+  _maxPoolSize: 30
+  _easyMode: {fileID: 11400000, guid: 4dd4ffc7c9bda55408c7252aeb62548d, type: 2}
+  _mediumMode: {fileID: 11400000, guid: 96a8b126bf74a7343aaf64ac8eac9d10, type: 2}
+  _hardMode: {fileID: 11400000, guid: 07f4fe7b57b5d7a4fb5341f713d80b1d, type: 2}
 --- !u!1001 &166881928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66161,9 +66164,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3911a111b552649b9f5600583f6ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _easyMode: {fileID: 0}
-  _mediumMode: {fileID: 0}
-  _hardMode: {fileID: 0}
+  _easyMode: {fileID: 11400000, guid: 4dd4ffc7c9bda55408c7252aeb62548d, type: 2}
+  _mediumMode: {fileID: 11400000, guid: 96a8b126bf74a7343aaf64ac8eac9d10, type: 2}
+  _hardMode: {fileID: 11400000, guid: 07f4fe7b57b5d7a4fb5341f713d80b1d, type: 2}
   _currentMode: {fileID: 0}
   _currentDamageableSpeed: 0
   _currentDamageableSize: 0
