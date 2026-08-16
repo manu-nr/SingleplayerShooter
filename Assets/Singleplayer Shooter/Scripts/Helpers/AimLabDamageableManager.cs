@@ -18,6 +18,7 @@ namespace AimLab
         [SerializeField] private int _maxPoolSize = 30;
 
         private ObjectPool<AimLabDamageable> _damageablePool;
+        private AimLabDamageable _currentDamageable;
 
         private float _currentSpeed;
         private float _currentSize;
@@ -69,20 +70,27 @@ namespace AimLab
 
         private void SpawnDamageable()
         {
-            AimLabDamageable damageable = _damageablePool.Get();
+            // Return old object to pool
+            if (_currentDamageable != null)
+            {
+                _damageablePool.Release(_currentDamageable);
+                _currentDamageable = null;
+            }
 
+            // Get an object from pool
+            _currentDamageable = _damageablePool.Get();
+
+            // Configure it
             float randomX = Random.Range(-_horizontalRange, _horizontalRange);
 
-            Vector3 spawnPosition = _spawnPoint.position;
-            spawnPosition.x += randomX;
+            Vector3 position = _spawnPoint.position;
+            position.x += randomX;
 
-            damageable.transform.position = spawnPosition;
+            _currentDamageable.transform.position = position;
 
-            damageable.SetDamageableSize(_currentSize);
-            damageable.SetDamageableSpeed(_currentSpeed);
-            damageable.SetCanMove(true);
-
-            damageable.Initialize(this);
+            _currentDamageable.SetDamageableSize(_currentSize);
+            _currentDamageable.SetDamageableSpeed(_currentSpeed);
+            _currentDamageable.SetCanMove(true);
         }
 
         private AimLabDamageable CreateDamageable()

@@ -30,6 +30,8 @@ namespace AimLab
             _mediumButton.SetTickMarkActive(difficulty == AimDifficulty.Medium);
             _hardButton.SetTickMarkActive(difficulty == AimDifficulty.Hard);
 
+            _selectedDifficulty = difficulty;
+
             ToggleStartButton(true);
         }
 

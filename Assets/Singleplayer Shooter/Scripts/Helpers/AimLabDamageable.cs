@@ -8,8 +8,8 @@ namespace AimLab
 
         private float _speed;
         private float _size;
-        private float _leftLimit;
-        private float _rightLimit;
+        [SerializeField] private float _leftLimit;
+        [SerializeField] private float _rightLimit;
 
         private int _direction = 1;
 
@@ -41,6 +41,7 @@ namespace AimLab
         public void SetDamageableSize(float size)
         {
             _size = size;
+            transform.localScale = new Vector3(_size, _size, _size);
         }
 
         public void SetDamageableSpeed(float speed)
